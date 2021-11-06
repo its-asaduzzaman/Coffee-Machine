@@ -1,5 +1,7 @@
 from coffee_data import MENU, resources
 
+shop_money = 0
+
 
 def calculate_money(q1, d1, n1, p1):
     """Calculate total money and return the value"""
@@ -13,9 +15,9 @@ def calculate_money(q1, d1, n1, p1):
     return total_user_money
 
 
-def show_report(current_w, current_m, current_c):
+def show_report(current_w, current_m, current_c, shop_m):
     """Show the report function"""
-    return f"Water: {current_w} \nMilk:  {current_m}\nCoffee: {current_c}"
+    return f"Water: {current_w} \nMilk:  {current_m}\nCoffee: {current_c}\nShop total Money: ${shop_m}"
 
 
 def espresso(current_w, current_c, ):
@@ -54,7 +56,7 @@ while game_on:
     user_choice = input("What would you like? (espresso/latte/cappuccino): ")
 
     if user_choice == 'report':
-        print(show_report(resources["water"], resources["milk"], resources["coffee"]))
+        print(show_report(resources["water"], resources["milk"], resources["coffee"], shop_money))
 
     elif user_choice == 'off':
         game_on = False
@@ -75,6 +77,7 @@ while game_on:
                     user_money1 = "{:.2f}".format(user_money)
                     print(f"Here is {user_money1} in change.")
                 print("Here is your espresso ☕ Enjoy! ")
+                shop_money = shop_money + 1.05
                 current_water = resources["water"]
                 current_coffee = resources["coffee"]
                 current_milk = resources["milk"]
@@ -88,7 +91,8 @@ while game_on:
                 print("Sorry there is not enough coffee.")
 
     elif user_choice == 'latte':
-        if current_water >= MENU["latte"]["ingredients"]["water"] and current_coffee >= MENU["latte"]["ingredients"]["coffee"] and current_milk >= MENU["latte"]["ingredients"]["milk"]:
+        if current_water >= MENU["latte"]["ingredients"]["water"] and current_coffee >= MENU["latte"]["ingredients"][
+            "coffee"] and current_milk >= MENU["latte"]["ingredients"]["milk"]:
             print("Please Insert Coin. ")
             q = float(input("How many quarters?: "))
             d = float(input("How many dimes?: "))
@@ -102,6 +106,7 @@ while game_on:
                     user_money1 = "{:.2f}".format(user_money)
                     print(f"Here is {user_money1} in change.")
                 print("Here is your latte ☕ Enjoy! ")
+                shop_money = shop_money + 2.50
                 current_water = resources["water"]
                 current_coffee = resources["coffee"]
                 current_milk = resources["milk"]
@@ -116,7 +121,9 @@ while game_on:
                 print("Sorry there is not enough milk.")
 
     elif user_choice == 'cappuccino':
-        if current_water >= MENU["cappuccino"]["ingredients"]["water"] and current_coffee >= MENU["cappuccino"]["ingredients"]["coffee"] and current_milk >= MENU["cappuccino"]["ingredients"]["milk"]:
+        if current_water >= MENU["cappuccino"]["ingredients"]["water"] and current_coffee >= \
+                MENU["cappuccino"]["ingredients"]["coffee"] and current_milk >= MENU["cappuccino"]["ingredients"][
+            "milk"]:
             print("Please Insert Coin. ")
             q = float(input("How many quarters?: "))
             d = float(input("How many dimes?: "))
@@ -130,6 +137,7 @@ while game_on:
                     user_money1 = "{:.2f}".format(user_money)
                     print(f"Here is {user_money1} in change.")
                 print("Here is your cappuccino ☕ Enjoy! ")
+                shop_money = shop_money + 3.00
                 current_water = resources["water"]
                 current_coffee = resources["coffee"]
                 current_milk = resources["milk"]
@@ -142,5 +150,3 @@ while game_on:
                 print("Sorry there is not enough coffee.")
             elif current_coffee < MENU["cappuccino"]["ingredients"]["milk"]:
                 print("Sorry there is not enough milk.")
-
-
